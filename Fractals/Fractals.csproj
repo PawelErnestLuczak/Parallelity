@@ -35,27 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Cloo">
-      <HintPath>..\..\..\..\..\Desktop\Cloo.dll</HintPath>
-    </Reference>
-    <Reference Include="ManagedCuda">
-      <HintPath>D:\Pobrane\ManagedCudaSamples\ManagedCudaSamples\lib\ManagedCuda.dll</HintPath>
-    </Reference>
-    <Reference Include="MPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=29b4a045737654fe, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\MPI.NET\Lib\MPI.dll</HintPath>
-    </Reference>
-    <Reference Include="OpenCLTemplate">
-      <HintPath>..\..\..\..\..\Desktop\OpenCL.CS.Learning2\OpenCL.CS.Learning2\OpenCL.CS.Learning2\bin\Debug\OpenCLTemplate.dll</HintPath>
-    </Reference>
-    <Reference Include="OpenTK, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Desktop\OpenTK.dll</HintPath>
-    </Reference>
-    <Reference Include="OpenTK.GLControl, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Desktop\OpenCL.CS.Learning2\OpenCL.CS.Learning2\OpenCL.CS.Learning2\bin\Debug\OpenTK.GLControl.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />

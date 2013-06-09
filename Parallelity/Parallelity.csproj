@@ -56,10 +56,6 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Cloo, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Desktop\Cloo.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
@@ -150,10 +146,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Fractals\Fractals.csproj">
-      <Project>{C73008B2-1DB8-421C-A758-42AC67CB6CAD}</Project>
-      <Name>Fractals</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Task library\Task library.csproj">
       <Project>{D1FE7E1B-0001-44B7-9B5D-E3FB5E037671}</Project>
       <Name>Task library</Name>
