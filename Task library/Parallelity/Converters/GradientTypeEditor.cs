@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.ComponentModel;
-using System.Globalization;
-using System.Drawing.Design;
-using Parallelity.Drawing;
+﻿using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Design;
 using System.Drawing.Drawing2D;
+using Parallelity.Drawing;
 
 namespace Parallelity.Converters
 {

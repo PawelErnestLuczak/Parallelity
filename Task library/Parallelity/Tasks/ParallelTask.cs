@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Drawing;
-using Parallelity.Drawing;
 using System.Linq;
-using System.Collections;
 
 namespace Parallelity.Tasks
 {

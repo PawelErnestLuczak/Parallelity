@@ -1,22 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Reflection;
-using System.Collections;
-using ManagedCuda;
-using ManagedCuda.VectorTypes;
-using ManagedCuda.BasicTypes;
-using System.IO;
-using System.ComponentModel;
-using Parallelity.Converters;
-using System.Drawing;
-using Parallelity.OperatingSystem;
-using System.Runtime.InteropServices;
-using System.Reflection;
-using System.Diagnostics;
-using Microsoft.CSharp;
 using System.CodeDom;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using System.Runtime.InteropServices;
+using Microsoft.CSharp;
+using Parallelity.OperatingSystem;
 
 namespace Parallelity.Tasks
 {

@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Reflection;
-using System.Collections;
 using ManagedCuda;
 using ManagedCuda.VectorTypes;
-using ManagedCuda.BasicTypes;
-using System.IO;
-using System.ComponentModel;
 using Parallelity.Converters;
-using System.Drawing;
 using Parallelity.OperatingSystem;
 
 namespace Parallelity.Tasks

@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections;
-using System.Linq;
-using System.Text;
-using System.Drawing;
-using System.Configuration;
-using Parallelity.Converters;
 using System.ComponentModel;
-using System.Collections.Specialized;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.Threading.Tasks;
 

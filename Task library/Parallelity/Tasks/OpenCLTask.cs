@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
 using Cloo;
 using OpenCLTemplate;
 using Parallelity.Converters;
-using System.Drawing;
 
 namespace Parallelity.Tasks
 {

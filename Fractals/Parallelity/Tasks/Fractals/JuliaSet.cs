@@ -1,24 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
+﻿using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Drawing.Design;
-using Parallelity.Tasks;
-using System.IO;
-using System.IO.Pipes;
-using OpenCLTemplate;
-using Cloo;
 using System.Numerics;
-using System.Diagnostics;
-using Parallelity.Drawing;
-using Parallelity.Converters;
-using System.Collections;
-using System.Linq;
 using Fractals.Properties;
+using Parallelity.Converters;
+using Parallelity.Drawing;
 using Parallelity.OperatingSystem;
-using System.Reflection;
 
 namespace Parallelity.Tasks.Fractals
 {
