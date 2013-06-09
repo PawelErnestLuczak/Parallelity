@@ -1,0 +1,4 @@
+Parallelity
+===========
+
+Multithread fractals generator.
