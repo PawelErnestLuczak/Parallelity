@@ -4,7 +4,7 @@
 	// nvopencc 4.1 built on 2012-09-25
 
 	//-----------------------------------------------------------
-	// Compiling C:/Users/Dawid/AppData/Local/Temp/tmpxft_00001814_00000000-11_FractalsCuda.cpp3.i (C:/Users/Dawid/AppData/Local/Temp/ccBI#.a01128)
+	// Compiling C:/Users/Dawid/AppData/Local/Temp/tmpxft_00001ca8_00000000-11_FractalsCuda.cpp3.i (C:/Users/Dawid/AppData/Local/Temp/ccBI#.a04492)
 	//-----------------------------------------------------------
 
 	//-----------------------------------------------------------
@@ -16,7 +16,7 @@
 	//  -m2	(Report advisories)
 	//-----------------------------------------------------------
 
-	.file	1	"C:/Users/Dawid/AppData/Local/Temp/tmpxft_00001814_00000000-10_FractalsCuda.cudafe2.gpu"
+	.file	1	"C:/Users/Dawid/AppData/Local/Temp/tmpxft_00001ca8_00000000-10_FractalsCuda.cudafe2.gpu"
 	.file	2	"C:/Users/Dawid/Documents/Visual Studio 2010/Projects/Parallelity/Fractals/Gen/FractalsCuda.cu"
 	.file	3	"c:\program files (x86)\microsoft visual studio 10.0\vc\include\codeanalysis\sourceannotations.h"
 	.file	4	"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.0\bin\/../include\crt/device_runtime.h"

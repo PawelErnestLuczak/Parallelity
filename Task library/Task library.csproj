@@ -45,14 +45,6 @@
     <Reference Include="OpenCLTemplate">
       <HintPath>..\..\..\..\..\Desktop\OpenCL.CS.Learning2\OpenCL.CS.Learning2\OpenCL.CS.Learning2\bin\Debug\OpenCLTemplate.dll</HintPath>
     </Reference>
-    <Reference Include="OpenTK, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Desktop\OpenTK.dll</HintPath>
-    </Reference>
-    <Reference Include="OpenTK.GLControl, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Desktop\OpenCL.CS.Learning2\OpenCL.CS.Learning2\OpenCL.CS.Learning2\bin\Debug\OpenTK.GLControl.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
