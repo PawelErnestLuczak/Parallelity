@@ -116,7 +116,6 @@ namespace Parallelity.Windows.Forms
                 {
                     MessageBox.Show(exc.Message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     toolStripButton4_Click(sender, e);
-                    throw exc;
                 }
             }
         }
@@ -139,7 +138,6 @@ namespace Parallelity.Windows.Forms
             {
                 toolStripStatusLabel1.Visible = false;
                 MessageBox.Show(exc.Message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                throw exc;
             }
         }
 
