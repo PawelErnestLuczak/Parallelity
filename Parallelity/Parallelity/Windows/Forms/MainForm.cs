@@ -137,7 +137,10 @@ namespace Parallelity.Windows.Forms
             catch (Exception exc)
             {
                 toolStripStatusLabel1.Visible = false;
-                MessageBox.Show(exc.Message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                Exception leaf;
+                for (leaf = exc; leaf.InnerException != null; leaf = leaf.InnerException) ;
+                MessageBox.Show(leaf.Message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

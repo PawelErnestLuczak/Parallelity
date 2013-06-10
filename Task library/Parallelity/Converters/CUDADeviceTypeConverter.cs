@@ -11,9 +11,16 @@ namespace Parallelity.Converters
         {
             get
             {
-                return Enumerable.Range(0, CudaContext.GetDeviceCount())
-                    .Select(i => CudaContext.GetDeviceInfo(i))
-                    .ToList();
+                try
+                {
+                    return Enumerable.Range(0, CudaContext.GetDeviceCount())
+                        .Select(i => CudaContext.GetDeviceInfo(i))
+                        .ToList();
+                }
+                catch (Exception)
+                {
+                    return new List<CudaDeviceProperties>();
+                }
             }
         }
     }

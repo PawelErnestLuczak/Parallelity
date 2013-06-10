@@ -45,12 +45,14 @@ namespace Parallelity.Tasks
             File.WriteAllBytes(binaryPath, kernelBinary);
             TriggerCheckpoint(ParallelExecutionCheckpointType.CheckpointPlatformInit);
 
+            String mpiDirectory = SystemArchitecture.ProgramFolder(ArchitectureType.x86, @"OpenMPI*");
+
             Process mpirunProcess = new Process();
             mpirunProcess.StartInfo.CreateNoWindow = true;
             mpirunProcess.StartInfo.UseShellExecute = false;
             mpirunProcess.StartInfo.RedirectStandardOutput = true;
-            mpirunProcess.StartInfo.EnvironmentVariables["PATH"] += @";C:\Program Files (x86)\OpenMPI_v1.5.5-x64\bin";
-            mpirunProcess.StartInfo.FileName = SystemArchitecture.ProgramFolder(ArchitectureType.x86, @"OpenMPI*") + @"\bin\mpirun.exe";
+            mpirunProcess.StartInfo.EnvironmentVariables["PATH"] += @";" + mpiDirectory + "\bin";
+            mpirunProcess.StartInfo.FileName = mpiDirectory + @"\bin\mpirun.exe";
             TriggerCheckpoint(ParallelExecutionCheckpointType.CheckpointKernelBuild);
 
             mpirunProcess.StartInfo.Arguments = String.Format("-n {0} \"{1}\" {2} {3} {4}",
@@ -67,6 +69,8 @@ namespace Parallelity.Tasks
 
             mpirunProcess.Start();
             TriggerCheckpoint(ParallelExecutionCheckpointType.CheckpointKernelExecute);
+
+            mpirunProcess.WaitForExit();
 
             using (MemoryStream resultStream = new MemoryStream())
             {

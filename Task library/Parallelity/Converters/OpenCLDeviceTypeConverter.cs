@@ -11,9 +11,16 @@ namespace Parallelity.Converters
         {
             get
             {
-                return ComputePlatform.Platforms
-                    .SelectMany(platform => platform.Devices)
-                    .ToList();
+                try
+                {
+                    return ComputePlatform.Platforms
+                        .SelectMany(platform => platform.Devices)
+                        .ToList();
+                }
+                catch (Exception)
+                {
+                    return new List<ComputeDevice>();
+                }
             }
         }
     }
