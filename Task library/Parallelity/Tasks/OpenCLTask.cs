@@ -91,7 +91,7 @@ namespace Parallelity.Tasks
             TriggerCheckpoint(ParallelExecutionCheckpointType.CheckpointStart);
 
             ComputeCommandQueue queue = QueueWithDevice(loaderParams.OpenCLDevice);
-            CLCalc.InitCL(ComputeDeviceTypes.Gpu, queue.Context, queue);
+            CLCalc.InitCL(queue.Device.Type, queue.Context, queue);
             TriggerCheckpoint(ParallelExecutionCheckpointType.CheckpointPlatformInit);
 
             source = "#define OpenCL\r\n" + source;
@@ -106,12 +106,13 @@ namespace Parallelity.Tasks
 
             int[] workersGlobal = new int[2] { loaderParams.GlobalWorkers.Width, loaderParams.GlobalWorkers.Height };
             CLCalc.Program.Kernel kernel = new CLCalc.Program.Kernel(function);
-            kernel.Execute(vars.ToArray(), workersGlobal, new int[2] { 1, 1 });
+            kernel.Execute(queue, vars.ToArray(), workersGlobal, null, null, null);
             TriggerCheckpoint(ParallelExecutionCheckpointType.CheckpointKernelExecute);
 
             T[] resultBuffer = ReadResultBuffer<T>(resultBufferVar, bufferSize);
             TriggerCheckpoint(ParallelExecutionCheckpointType.CheckpointDeviceRead);
 
+            CLCalc.DisableCL();
             TriggerCheckpoint(ParallelExecutionCheckpointType.CheckpointPlatformDeinit);
 
             return resultBuffer;
