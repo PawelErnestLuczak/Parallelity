@@ -86,8 +86,6 @@ namespace Parallelity.Tasks
             mpirunProcess.Start();
             TriggerCheckpoint(ParallelExecutionCheckpointType.CheckpointKernelExecute);
 
-            mpirunProcess.WaitForExit();
-
             using (MemoryStream resultStream = new MemoryStream())
             {
                 mpirunProcess.StandardOutput.BaseStream.CopyTo(resultStream);
