@@ -6,7 +6,7 @@ Multi-threaded task executor.
 Sample tasks implemented
 ========================
 
-Fractal generators
+Fractal generators:
 - Julia set
 - Mandelbrot set
 - Burning ship
