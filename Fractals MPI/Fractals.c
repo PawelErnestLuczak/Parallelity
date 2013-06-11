@@ -21,7 +21,7 @@
 
     #define DeviceKernel __global__
     #define DeviceFunc __device__
-    #define DeviceVar const
+    #define DeviceVar
     #define DeviceBlockStart extern "C" {
     #define DeviceBlockEnd }
 
@@ -110,7 +110,7 @@ typedef struct
 
 typedef struct
 {
-    float* raw;
+    DeviceVar float* raw;
     int width;
     int height;
 } Bitmap;
@@ -188,7 +188,7 @@ DeviceKernel void ship(
     DeviceVar float* threshold,
     DeviceVar int* iterations)
 {
-    Bitmap bitmap = { (float*)output, *width, *height };
+    Bitmap bitmap = { output, *width, *height };
 
 	Point f = { get_global_id(0), get_global_id(1) };
 	Point d = { get_global_size(0), get_global_size(1) };
@@ -228,7 +228,7 @@ DeviceKernel void mandelbrot(
     DeviceVar float* threshold,
     DeviceVar int* iterations)
 {
-    Bitmap bitmap = { (float*)output, *width, *height };
+    Bitmap bitmap = { output, *width, *height };
 
 	Point f = { get_global_id(0), get_global_id(1) };
 	Point d = { get_global_size(0), get_global_size(1) };
@@ -270,7 +270,7 @@ DeviceKernel void julia(
     DeviceVar int* iterations)
 {
     Complex seed = __Complex(*seed_r, *seed_i);
-    Bitmap bitmap = { (float*)output, *width, *height };
+    Bitmap bitmap = { output, *width, *height };
 
 	Point f = { get_global_id(0), get_global_id(1) };
 	Point d = { get_global_size(0), get_global_size(1) };
@@ -308,7 +308,7 @@ DeviceKernel void fern(
     DeviceVar int* random_b)
 {
     Random state = { (uint*)random_a, (uint*)random_b };
-    Bitmap bitmap = { (float*)output, *width, *height };
+    Bitmap bitmap = { output, *width, *height };
 
     int i;
     double random;

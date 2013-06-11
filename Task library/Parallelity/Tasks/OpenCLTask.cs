@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using Cloo;
-using OpenCLTemplate;
 using Parallelity.Converters;
 
 namespace Parallelity.Tasks
@@ -42,34 +41,21 @@ namespace Parallelity.Tasks
                 (T[])obj;
         }
 
-        private static CLCalc.Program.Variable[] WrapDeviceVariables(Object[] kernelParams)
+        private static ComputeMemory[] WrapDeviceVariables(Object[] kernelParams, ComputeContext context)
         {
-            return kernelParams.Select(obj =>
+            ComputeMemoryFlags flags = ComputeMemoryFlags.ReadOnly | ComputeMemoryFlags.CopyHostPointer;
+
+            return kernelParams.Select<Object, ComputeMemory>(obj =>
             {
                 if (EnclosesInType<int>(obj))
-                    return new CLCalc.Program.Variable(EncloseInType<int>(obj));
+                    return new ComputeBuffer<int>(context, flags, EncloseInType<int>(obj));
                 else if (EnclosesInType<float>(obj))
-                    return new CLCalc.Program.Variable(EncloseInType<float>(obj));
+                    return new ComputeBuffer<float>(context, flags, EncloseInType<float>(obj));
                 else if (EnclosesInType<char>(obj))
-                    return new CLCalc.Program.Variable(EncloseInType<char>(obj));
+                    return new ComputeBuffer<char>(context, flags, EncloseInType<char>(obj));
                 else
                     throw new NotImplementedException("Type " + obj.GetType() + " is unhandled.");
             }).ToArray();
-        }
-
-        private static T[] ReadResultBuffer<T>(CLCalc.Program.Variable var, int resultBufferSize)
-        {
-            Object buffer = new T[resultBufferSize];
-            if (typeof(T) == typeof(int))
-                var.ReadFromDeviceTo((int[])buffer);
-            else if (typeof(T) == typeof(float))
-                var.ReadFromDeviceTo((float[])buffer);
-            else if (typeof(T) == typeof(char))
-                var.ReadFromDeviceTo((char[])buffer);
-            else
-                throw new NotImplementedException("Type " + typeof(T) + " is unhandled.");
-
-            return (T[])buffer;
         }
 
         private static ComputeCommandQueue QueueWithDevice(ComputeDevice device)
@@ -87,32 +73,40 @@ namespace Parallelity.Tasks
             int bufferSize,
             ParallelTaskParams loaderParams,
             params Object[] kernelParams)
+            where T : struct
         {
             TriggerCheckpoint(ParallelExecutionCheckpointType.CheckpointStart);
 
             ComputeCommandQueue queue = QueueWithDevice(loaderParams.OpenCLDevice);
-            CLCalc.InitCL(queue.Device.Type, queue.Context, queue);
             TriggerCheckpoint(ParallelExecutionCheckpointType.CheckpointPlatformInit);
 
-            source = "#define OpenCL\r\n" + source;
-            CLCalc.Program.Compile(source);
+            String updatedSource = "#define OpenCL\r\n" + source;
+            ComputeProgram program = new ComputeProgram(queue.Context, updatedSource);
+            program.Build(new ComputeDevice[] { queue.Device }, null, null, IntPtr.Zero);
             TriggerCheckpoint(ParallelExecutionCheckpointType.CheckpointKernelBuild);
 
-            CLCalc.Program.Variable resultBufferVar = new CLCalc.Program.Variable(typeof(T), bufferSize);
-            List<CLCalc.Program.Variable> vars = new List<CLCalc.Program.Variable>();
+            T[] resultBuffer = new T[bufferSize];
+
+            ComputeBuffer<T> resultBufferVar = new ComputeBuffer<T>(queue.Context, ComputeMemoryFlags.WriteOnly, bufferSize);
+            List<ComputeMemory> vars = new List<ComputeMemory>();
             vars.Add(resultBufferVar);
-            vars.AddRange(WrapDeviceVariables(kernelParams));
+            vars.AddRange(WrapDeviceVariables(kernelParams, queue.Context));
+
+            ComputeKernel kernel = program.CreateKernel(function);
+
+            for (int i = 0; i < vars.Count; i++)
+                kernel.SetMemoryArgument(i, vars[i]);
+
             TriggerCheckpoint(ParallelExecutionCheckpointType.CheckpointDeviceWrite);
 
-            int[] workersGlobal = new int[2] { loaderParams.GlobalWorkers.Width, loaderParams.GlobalWorkers.Height };
-            CLCalc.Program.Kernel kernel = new CLCalc.Program.Kernel(function);
-            kernel.Execute(queue, vars.ToArray(), workersGlobal, null, null, null);
+            long[] workersGlobal = new long[2] { loaderParams.GlobalWorkers.Width, loaderParams.GlobalWorkers.Height };
+            queue.Execute(kernel, null, workersGlobal, null, null);
             TriggerCheckpoint(ParallelExecutionCheckpointType.CheckpointKernelExecute);
 
-            T[] resultBuffer = ReadResultBuffer<T>(resultBufferVar, bufferSize);
+            queue.ReadFromBuffer<T>(resultBufferVar, ref resultBuffer, false, null);
             TriggerCheckpoint(ParallelExecutionCheckpointType.CheckpointDeviceRead);
 
-            CLCalc.DisableCL();
+            queue.Finish();
             TriggerCheckpoint(ParallelExecutionCheckpointType.CheckpointPlatformDeinit);
 
             return resultBuffer;
