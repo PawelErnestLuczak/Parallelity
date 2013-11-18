@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using System.Numerics;
@@ -18,6 +20,14 @@ namespace Parallelity.Windows.Forms
 {
     public partial class MainForm : Form
     {
+        [DllImport("user32.dll")]
+        public static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vlc);
+        [DllImport("user32.dll")]
+        public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+
+        private const int HotKeyModifierCtrl = 2;
+        private const int HotKeyIdCopy = 1;
+
         private List<dynamic> Tasks;
         private dynamic SelectedTask;
 
@@ -43,6 +53,8 @@ namespace Parallelity.Windows.Forms
                         MessageBoxIcon.Information);
                 }
             }
+
+            RegisterHotKey(this.Handle, HotKeyIdCopy, HotKeyModifierCtrl, (int)'C');
 
             Tasks = new List<dynamic>();
             SelectedTask = null;
@@ -147,6 +159,20 @@ namespace Parallelity.Windows.Forms
         private void zamknijToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == 0x0312 && m.WParam.ToInt32() == HotKeyIdCopy)
+            {
+                if (pictureBox1.Image != null)
+                {
+                    Clipboard.SetImage(pictureBox1.Image);
+                    System.Media.SystemSounds.Beep.Play();
+                }
+            }
+
+            base.WndProc(ref m);
         }
     }
 }
