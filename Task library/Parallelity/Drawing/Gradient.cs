@@ -129,6 +129,36 @@ namespace Parallelity.Drawing
                     Color.Chartreuse,
                     Color.MintCream
                 }, "Trawa");
+
+        public static Gradient Gray { get { return _Gray; } }
+        private static Gradient _Gray =
+            new Gradient(new Color[]
+                {
+                    Color.Black,
+                    Color.Gray,
+                    Color.DarkGray,
+                    Color.LightGray
+                }, "Szary");
+
+        public static Gradient Violet { get { return _Violet; } }
+        private static Gradient _Violet =
+            new Gradient(new Color[]
+                {
+                    Color.Black,
+                    Color.DarkViolet,
+                    Color.Violet,
+                    Color.PaleVioletRed
+                }, "Fioletowy");
+
+        public static Gradient Rainbow { get { return _Rainbow; } }
+        private static Gradient _Rainbow =
+            new Gradient(new Color[]
+                {
+                    Color.Blue,
+                    Color.Green,
+                    Color.Yellow,
+                    Color.Red
+                }, "Tęczowy");
     }
 
     public static class GradientExtension
