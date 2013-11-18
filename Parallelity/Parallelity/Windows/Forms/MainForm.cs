@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Media;
 using System.Runtime.InteropServices;
@@ -145,6 +146,7 @@ namespace Parallelity.Windows.Forms
             {
                 pictureBox1.Image = SelectedTask.Run(ParallelPlatformExtension.Parse((String)toolStripComboBox1.SelectedItem));
                 toolStripStatusLabel1.Text = "Czas przetwarzania: " + SelectedTask[ParallelExecutionCheckpointType.CheckpointPlatformDeinit].ToString();
+                zapiszJakoToolStripMenuItem.Enabled = true;
             }
             catch (Exception exc)
             {
@@ -173,6 +175,20 @@ namespace Parallelity.Windows.Forms
             }
 
             base.WndProc(ref m);
+        }
+
+        private void zapiszJakoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                switch (saveFileDialog1.FilterIndex)
+                {
+                    case 1: pictureBox1.Image.Save(saveFileDialog1.FileName, ImageFormat.Bmp); break;
+                    case 2: pictureBox1.Image.Save(saveFileDialog1.FileName, ImageFormat.Png); break;
+                    case 3: pictureBox1.Image.Save(saveFileDialog1.FileName, ImageFormat.Jpeg); break;
+                    case 4: pictureBox1.Image.Save(saveFileDialog1.FileName, ImageFormat.Gif); break;
+                }
+            }
         }
     }
 }
