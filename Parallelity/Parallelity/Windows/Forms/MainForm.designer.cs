@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.plikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zamknijToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,6 +62,7 @@
             this.timeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.udostępnijToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.headerPanel3.SuspendLayout();
@@ -105,7 +106,8 @@
             // wynikToolStripMenuItem
             // 
             this.wynikToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.zapiszJakoToolStripMenuItem});
+            this.zapiszJakoToolStripMenuItem,
+            this.udostępnijToolStripMenuItem});
             this.wynikToolStripMenuItem.Name = "wynikToolStripMenuItem";
             this.wynikToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.wynikToolStripMenuItem.Text = "Wynik";
@@ -362,9 +364,9 @@
             // 
             this.timeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.timeDataGridViewTextBoxColumn.DataPropertyName = "time";
-            dataGridViewCellStyle1.Format = "G";
-            dataGridViewCellStyle1.NullValue = null;
-            this.timeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Format = "G";
+            dataGridViewCellStyle2.NullValue = null;
+            this.timeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
             this.timeDataGridViewTextBoxColumn.FillWeight = 25F;
             this.timeDataGridViewTextBoxColumn.HeaderText = "Czas";
             this.timeDataGridViewTextBoxColumn.Name = "timeDataGridViewTextBoxColumn";
@@ -385,6 +387,14 @@
             // 
             this.saveFileDialog1.Filter = "Bitmap|*.bmp|Portable Network Graphics|*.png|Joint Photographic Expert Group|*.jp" +
                 "eg|Graphics Interchange Format|*.gif";
+            // 
+            // udostępnijToolStripMenuItem
+            // 
+            this.udostępnijToolStripMenuItem.Enabled = false;
+            this.udostępnijToolStripMenuItem.Name = "udostępnijToolStripMenuItem";
+            this.udostępnijToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.udostępnijToolStripMenuItem.Text = "Udostępnij...";
+            this.udostępnijToolStripMenuItem.Click += new System.EventHandler(this.udostępnijToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -460,5 +470,6 @@
         private System.Windows.Forms.ToolStripMenuItem wynikToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zapiszJakoToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.ToolStripMenuItem udostępnijToolStripMenuItem;
     }
 }

@@ -16,6 +16,7 @@ using Parallelity.Logs;
 using Parallelity.Tasks;
 using Parallelity.Converters;
 using Parallelity.OperatingSystem;
+using Parallelity.Facebook;
 
 namespace Parallelity.Windows.Forms
 {
@@ -146,7 +147,9 @@ namespace Parallelity.Windows.Forms
             {
                 pictureBox1.Image = SelectedTask.Run(ParallelPlatformExtension.Parse((String)toolStripComboBox1.SelectedItem));
                 toolStripStatusLabel1.Text = "Czas przetwarzania: " + SelectedTask[ParallelExecutionCheckpointType.CheckpointPlatformDeinit].ToString();
+
                 zapiszJakoToolStripMenuItem.Enabled = true;
+                udostępnijToolStripMenuItem.Enabled = true;
             }
             catch (Exception exc)
             {
@@ -188,6 +191,19 @@ namespace Parallelity.Windows.Forms
                     case 3: pictureBox1.Image.Save(saveFileDialog1.FileName, ImageFormat.Jpeg); break;
                     case 4: pictureBox1.Image.Save(saveFileDialog1.FileName, ImageFormat.Gif); break;
                 }
+            }
+        }
+
+        private void udostępnijToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (FacebookManager.PublishPhoto(pictureBox1.Image, "Obraz wygenerowany za pomocą aplikacji Parallelity."))
+            {
+                DialogResult result = MessageBox.Show(
+                    "Obraz został udostępniony na Facebooku.",
+                    "Komunikat",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information,
+                    MessageBoxDefaultButton.Button1);
             }
         }
     }

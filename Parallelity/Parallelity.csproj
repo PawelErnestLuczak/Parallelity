@@ -56,6 +56,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Facebook">
+      <HintPath>..\packages\Facebook.6.4.2\lib\net40-client\Facebook.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
@@ -70,6 +73,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Parallelity\Facebook\FacebookLoginDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Parallelity\Facebook\FacebookLoginDialog.Designer.cs">
+      <DependentUpon>FacebookLoginDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Parallelity\Facebook\FacebookManager.cs" />
     <Compile Include="Parallelity\Logs\Log.cs" />
     <Compile Include="Parallelity\Logs\LogController.cs" />
     <Compile Include="Parallelity\OperatingSystem\RegistryValidator.cs" />
@@ -88,6 +98,9 @@
     <Compile Include="Parallelity\Windows\Forms\MainForm.designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Parallelity\Facebook\FacebookLoginDialog.resx">
+      <DependentUpon>FacebookLoginDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -103,6 +116,7 @@
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="app.manifest" />
+    <None Include="packages.config" />
     <None Include="Properties\DataSources\Parallelity.Logs.Log.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
