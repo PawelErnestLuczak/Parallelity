@@ -20,12 +20,16 @@ using Parallelity.Facebook;
 
 namespace Parallelity.Windows.Forms
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Form, IMessageFilter
     {
         [DllImport("user32.dll")]
         public static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vlc);
         [DllImport("user32.dll")]
         public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+        [DllImport("user32.dll")]
+        public static extern IntPtr WindowFromPoint(Point pt);
+        [DllImport("user32.dll")]
+        public static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
 
         private const int HotKeyModifierCtrl = 2;
         private const int HotKeyIdCopy = 1;
@@ -36,6 +40,8 @@ namespace Parallelity.Windows.Forms
         public MainForm()
         {
             InitializeComponent();
+
+            Application.AddMessageFilter(this);
 
             if (!RegistryValidator.IsRegistryCompatible())
             {
@@ -65,6 +71,8 @@ namespace Parallelity.Windows.Forms
             toolStripComboBox1.SelectedIndex = ParallelPlatformExtension.Platforms.IndexOf(ParallelPlatform.PlatformMPI);
 
             dataGridView1.DataSource = LogController.logs;
+
+            pictureBox1.MouseWheel += new MouseEventHandler(pictureBox1_MouseWheel);
         }
 
         private TreeNode loadLibrary(String libraryPath)
@@ -180,6 +188,23 @@ namespace Parallelity.Windows.Forms
             base.WndProc(ref m);
         }
 
+        public bool PreFilterMessage(ref Message m)
+        {
+            if (m.Msg == 0x20a)
+            {
+                Point pos = new Point(m.LParam.ToInt32() & 0xffff, m.LParam.ToInt32() >> 16);
+                IntPtr hWnd = WindowFromPoint(pos);
+
+                if (hWnd != IntPtr.Zero && hWnd != m.HWnd && Control.FromHandle(hWnd) != null)
+                {
+                    SendMessage(hWnd, m.Msg, m.WParam, m.LParam);
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         private void zapiszJakoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -205,6 +230,25 @@ namespace Parallelity.Windows.Forms
                     MessageBoxIcon.Information,
                     MessageBoxDefaultButton.Button1);
             }
+        }
+
+        private void pictureBox1_MouseWheel(object sender, MouseEventArgs e)
+        {
+            if (propertyGrid1.SelectedObject == null)
+                return;
+
+            PropertyInfo property = propertyGrid1.SelectedObject.GetType().GetProperty("Scale");
+
+            if (property == null)
+                return;
+            
+            float scale = (float)property.GetValue(propertyGrid1.SelectedObject, null);
+            float newScale = scale * (e.Delta > 0 ? 1.1f : 0.9f);
+            property.SetValue(propertyGrid1.SelectedObject, newScale, null);
+
+            propertyGrid1.SelectedObject = propertyGrid1.SelectedObject;
+
+            toolStripButton1_Click(sender, e);
         }
     }
 }
