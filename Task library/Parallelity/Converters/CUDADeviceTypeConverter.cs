@@ -24,7 +24,7 @@ namespace Parallelity.Converters
             }
         }
     }
-
+	// ale cuda hohohoho
     public class CUDADeviceTypeConverter : GenericTypeConverter<CudaDeviceProperties>
     {
         protected override List<CudaDeviceProperties> GetAll()
